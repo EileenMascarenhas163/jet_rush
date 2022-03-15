@@ -2,8 +2,8 @@ import pygame
 import random
 from cmath import sqrt
 from pygame import mixer
-import json
-import operator
+import json  # for parsing the data of the player and his current game score to the Leaderboard.txt file
+import operator # for sorting the dictionary key value pairs for Ranking the players in the leaderboard
 
 #initialising the pygame module
 pygame.init()
@@ -244,17 +244,17 @@ if leader_status == True:
     
     #updating
     with open('Leaderboard.txt', 'w') as file:
-        file.write(json.dumps(js))
+        file.write(json.dumps(new_leader_b))
     #Rank display of the current player
     for i in range(1, len(new_leader_b)):
-        if user_input == list(new_leader_b.keys())[i]:
+        if h_score == list(new_leader_b.values())[i]:
             print("Your Rank is",i)
 
     print("our top 3 players")
     print("Names\t\t\t\tScore")
     #leaderboard
-    for i in range(1, 4):
-        print(i,list(new_leader_b.keys())[i],"\t\t\t\t",list(new_leader_b.values())[i])
+    for i in range(0, 3):
+        print(i+1,list(new_leader_b.keys())[i],"\t\t\t\t",list(new_leader_b.values())[i])
 
    
 else:
