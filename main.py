@@ -3,11 +3,11 @@ import random
 from cmath import sqrt
 from pygame import mixer
 import json
+import operator
 
 #initialising the pygame module
 pygame.init()
 pygame.font.init()
-# Starting the mixer
 mixer.init()
 #game loop
 run = True
@@ -225,9 +225,6 @@ while run:
     clock.tick(30)
 
 if leader_status == True:
-    f = open("countFile.txt", "r")
-    count = int(f.read())
-    f.close()
 
     #loading the data
     with open('Leaderboard.txt') as f:
@@ -238,13 +235,13 @@ if leader_status == True:
     h_score = score + kill
     user_input = input("Enter Your First Name")
     js[user_input] = h_score
+    
     #display names and score
-    print("Player",user_input)
-    print("Score",h_score)
+    print("Player:",user_input)
+    print("Score:",h_score)
     #sorting the leaderboard
-    l=list(js.items())
-    l.sort(reverse=True) #sort in reverse order
-    new_leader_b=dict(l)
+    new_leader_b = dict( sorted(js.items(), key=operator.itemgetter(1),reverse=True))
+    
     #updating
     with open('Leaderboard.txt', 'w') as file:
         file.write(json.dumps(js))
@@ -253,16 +250,12 @@ if leader_status == True:
         if user_input == list(new_leader_b.keys())[i]:
             print("Your Rank is",i)
 
-    print("our top five players")
+    print("our top 3 players")
     print("Names\t\t\t\tScore")
     #leaderboard
     for i in range(1, 4):
         print(i,list(new_leader_b.keys())[i],"\t\t\t\t",list(new_leader_b.values())[i])
 
-    #counter
-    f = open("countFile.txt", "w")
-    count+=1
-    f.write(str(count))
-    f.close()
+   
 else:
     pass
