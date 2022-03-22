@@ -1,6 +1,6 @@
 import pygame
 import random
-from cmath import sqrt
+from cmath import*
 from pygame import mixer
 import json  # for parsing the data of the player and his current game score to the Leaderboard.txt file
 import operator # for sorting the dictionary key value pairs for Ranking the players in the leaderboard
